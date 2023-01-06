@@ -33,6 +33,7 @@
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
+    <script src="lib/angular/angular-locale_pt-br.js"></script>
     <script>
         angular.module("listaTelefonica", ["ngMessages"]);
         angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope){
@@ -43,12 +44,12 @@
                 {nome: "Vetoooor", telefone: "999996699", data: new Date()}
             ];
             $scope.operadoras = [
-                {nome: "Oi", codigo: 14, categoria: "Celular"},
-                {nome: "Vivo", codigo: 15, categoria: "Celular"},
-                {nome: "Claro", codigo: 17, categoria: "Celular"},
-                {nome: "Tim", codigo: 41, categoria: "Celular"},
-                {nome: "GVT", codigo: 25, categoria: "Fixo"},
-                {nome: "Embratel", codigo: 21, categoria: "Fixo"},
+                {nome: "Oi", codigo: 14, categoria: "Celular", preco: 1.00},
+                {nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1.70},
+                {nome: "Claro", codigo: 17, categoria: "Celular", preco: 1.00},
+                {nome: "Tim", codigo: 41, categoria: "Celular", preco: 3.00},
+                {nome: "GVT", codigo: 25, categoria: "Fixo", preco: 4.00},
+                {nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2.50},
             ];
             $scope.adicionaContato = function (contato) {
                 $scope.contatos.push(contato);
@@ -99,7 +100,7 @@
             <form name="contatoForm">
                 <input class="form-control" type="text" placeholder="Nome" ng-model="contato.nome" name="nome"  ng-required="true" ng-minlength="10" />
                 <input class="form-control" type="text" placeholder="Telefone" ng-model="contato.telefone" name="telefone" ng-required="true" ng-pattern="regexpTelefone"/>
-                <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome + ' (' + (operadora.preco | currency) + ')' group by operadora.categoria for operadora in operadoras">
                     <option value="">Selecione uma operadora</option>
                 </select>
                 <button class="btn btn-primary btn-block" ng-click="adicionaContato(contato)" ng-disabled="contatoForm.$invalid" >Adicionar Contato</button>
