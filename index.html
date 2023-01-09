@@ -39,8 +39,8 @@
 			$scope.contatos = [];
 			$scope.operadoras = [];
 
-            var linkContatos = "http://cidadaodesv.local/angular/back/contatos.php";
-            var linkOperadoras = "http://cidadaodesv.local/angular/back/operadoras.php";      
+            var linkContatos = "/angular/back/contatos.php";
+            var linkOperadoras = "/angular/back/operadoras.php";      
 
 			var carregarContatos = function () {
 				$http.get(linkContatos).success(function (data) {
@@ -59,10 +59,9 @@
 			$scope.adicionarContato = function (contato) {
 				contato.data = new Date();
 				$http.post(linkContatos, contato).success(function (data) {
-					
 					delete $scope.contato;
 					$scope.contatoForm.$setPristine();
-					carregarContatos();
+					$scope.contatos.push(data);
 				});
 			};
 			$scope.apagarContatos = function (contatos) {
