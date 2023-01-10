@@ -1,17 +1,13 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI, operadorasAPI) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, operadorasAPI) {
     $scope.app = "Lista Telefonica";
-    $scope.contatos = [];
+    $scope.contatos = [
+        {nome: uppercaseFilter("Pedro"), telefone: "9999-8888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
+        {nome: "Ana", telefone: "9999-8877", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
+        {nome: "Maria", telefone: "9999-8866", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
+    ];
+
     $scope.operadoras = [];
    
-
-    var carregarContatos = function () {
-        contatosAPI.getContatos().success(function (data) {
-            $scope.contatos = data;
-        }).error(function (data, status) {
-            $scope.message = "Aconteceu um problema: " + data;
-        });
-    };
-
     var carregarOperadoras = function () {
         operadorasAPI.getOperadoras().success(function (data) {
             $scope.operadoras = data;
@@ -19,13 +15,11 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     };
 
     $scope.adicionarContato = function (contato) {
-        contato.data = new Date();
-        contatosAPI.saveContato(contato).success(function (data) {
-            delete $scope.contato;
-            $scope.contatoForm.$setPristine();
-            $scope.contatos.push(data);
-        });
+        $scope.contatos.push(angular.copy(contato));
+        delete $scope.contato;
+        $scope.contatoForm.$setPristine();
     };
+
     $scope.apagarContatos = function (contatos) {
         $scope.contatos = contatos.filter(function (contato) {
             if (!contato.selecionado) return contato;
