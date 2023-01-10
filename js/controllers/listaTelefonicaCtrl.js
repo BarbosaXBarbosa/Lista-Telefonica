@@ -1,13 +1,11 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI, operadorasAPI) {
     $scope.app = "Lista Telefonica";
     $scope.contatos = [];
     $scope.operadoras = [];
-
-    var linkContatos = "/angular/back/contatos.php";
-    var linkOperadoras = "/angular/back/operadoras.php";      
+   
 
     var carregarContatos = function () {
-        contatosAPI.getContatos($http).success(function (data) {
+        contatosAPI.getContatos().success(function (data) {
             $scope.contatos = data;
         }).error(function (data, status) {
             $scope.message = "Aconteceu um problema: " + data;
@@ -15,7 +13,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     };
 
     var carregarOperadoras = function () {
-        $http.get(linkOperadoras).success(function (data) {
+        operadorasAPI.getOperadoras().success(function (data) {
             $scope.operadoras = data;
         });
     };

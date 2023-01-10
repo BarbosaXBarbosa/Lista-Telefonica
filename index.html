@@ -9,6 +9,7 @@
     <script src="js/app.js"></script>
 	<script src="js/controllers/listaTelefonicaCtrl.js"></script>
     <script src="js/services/contatosAPIService.js"></script>
+	<script src="js/services/operadoraAPIService.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
@@ -39,7 +40,6 @@
 				<option value="">Selecione uma operadora</option>
 			</select>
 		</form>
-
 		<div ng-show="contatoForm.nome.$dirty" ng-messages="contatoForm.nome.$error">
 			<div ng-message="required" class="alert alert-danger">
 				Por favor, preencha o campo nome!
