@@ -23,9 +23,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         });
     };
 
-    $scope.adicionaContato = function (contato) {
-
-        contato.data = new Date();
+    $scope.adicionarContato = function (contato) {
         contato.serial = serialGenerator.generate();
         $scope.contatos.push(contato);
         
