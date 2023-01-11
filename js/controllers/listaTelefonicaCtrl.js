@@ -5,13 +5,16 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     $scope.operadoras = [];
    
 
-    var carregarContatos = function () {
-        contatosAPI.getContatos().success(function (data) {
-            $scope.contatos = data;
-        }).error(function (data, status) {
-            $scope.message = "Aconteceu um problema: " + data;
-        });
-    };
+	var carregarContatos = function () {
+		contatosAPI.getContatos().success(function (data) {
+			data.forEach(function (item) {
+				item.serial = serialGenerator.generate();
+			});
+			$scope.contatos = data;
+		}).error(function (data, status) {
+			$scope.error = "Não foi possível carregar os dados!";
+		});
+	};
 
     var carregarOperadoras = function () {
         operadorasAPI.getOperadoras().success(function (data) {
