@@ -3,6 +3,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     $scope.app = "Lista Telefonica";
     $scope.contatos = [];
     $scope.operadoras = [];
+    
    
 
 	var carregarContatos = function () {
